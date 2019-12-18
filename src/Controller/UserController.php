@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+
 
 /**
  * @Route("/user")
@@ -79,12 +81,16 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
 
     /**
      * @Route("/{id}", name="user_profile", methods={"GET"})
      */
-    public function show(User $user): Response
+    public function show(User $user, Request $request, SerializerInterface $serializer): Response
     {
+        if ($request->isXmlHttpRequest()) {
+            return JsonResponse::fromJsonString($serializer->serialize($user, 'json'));
+        }
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
