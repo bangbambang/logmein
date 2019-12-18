@@ -13,14 +13,27 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/")
+ * @Route("/user")
  */
 class UserController extends AbstractController
 {
+
     /**
-     * @Route("/", name="user_new", methods={"GET", "POST"})
+     * @Route("/", name="user_list", methods={"GET"})
      */
-    public function index(Request $request): Response
+    public function list(UserRepository $userRepository): Response
+    {
+        return $this->render('user/list.html.twig', [
+            'users' => $userRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * Provide fallback for non-js client
+     * 
+     * @Route("/add", name="user_add", methods={"GET", "POST"})
+     */
+    public function add(Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -51,13 +64,13 @@ class UserController extends AbstractController
                 $response->setData([
                     'status' => 'success',
                     'message' => [
-                        'redirect' => $this->generateUrl('user_login'),
+                        'redirect' => $this->generateUrl('auth_login'),
                     ],
                 ]);
 
                 return $response;
             } else {
-                return $this->redirectToRoute('user_login');
+                return $this->redirectToRoute('auth_login');
             }
         }
 
@@ -68,30 +81,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="user_login", methods={"GET", "POST"})
-     */
-    public function login(Request $request): Response
-    {
-        return new JsonResponse(['status' => 'OK', 'message' => 'to be added']);
-    }
-
-    /**
-     * @Route("/user/{id}", name="user_profile", methods={"GET"})
+     * @Route("/{id}", name="user_profile", methods={"GET"})
      */
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
             'user' => $user,
-        ]);
-    }
-
-    /**
-     * @Route("/users", name="user_list", methods={"GET"})
-     */
-    public function list(UserRepository $userRepository): Response
-    {
-        return $this->render('user/list.html.twig', [
-            'users' => $userRepository->findAll(),
         ]);
     }
 
@@ -108,7 +103,6 @@ class UserController extends AbstractController
                 $errors[$input->getName()] = $this->getErrorMessages($input);
             }
         }
-
         return $errors;
     }
 }

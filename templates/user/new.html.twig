@@ -55,8 +55,10 @@
 		</fieldset>
 		{{ form_end(form) }}
 	</div>
-	<footer class="row d-flex flex-column justify-content-center fixed-bottom px-5 py-3">
-		<a id="login_button" class="btn btn-primary flex-grow d-none" href="#" alt="{{ login_label|default('Login') }}">{{ login_label|default('Login') }}</a>
+	<footer class="row fixed-bottom px-5 py-3">
+		<div class="container-lg p-0 d-flex flex-column justify-content-center">
+				<a id="login_button" class="btn btn-primary flex-grow d-none" href="#" alt="{{ login_label|default('Login') }}">{{ login_label|default('Login') }}</a>
+		</div>
 	</footer>
 {% endblock %}
 {% block javascripts %}

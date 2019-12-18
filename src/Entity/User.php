@@ -38,6 +38,16 @@ class User
      *     match=false,
      *     message="Name cannot contain a number"
      * )
+     * @Assert\Regex(
+     *     pattern="/\w{1,}/",
+     *     message="Incompatible name"
+     * )
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $firstName;
@@ -49,20 +59,30 @@ class User
      *     match=false,
      *     message="Name cannot contain a number"
      * )
+     * @Assert\Regex(
+     *     pattern="/\w{2,}/",
+     *     message="Incompatible name"
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "Your last name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your last name cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $lastName;
 
     /**
-     * Mobile phone use naive validation rules. a8xxyyyyyyzz where:
-     * - a denotes 1-3 characters (alternate between 0, 62, and +62)
-     * - x denotes 2 digits operator identifier (no zeroes)
-     * - y denotes 6 digits minimum length for mobile number
+     * Mobile phone use naive validation rules. 08xyyyyyyyzz where:
+     * - 08 prefix
+     * - x denotes 1 digits operator identifier (no zero)
+     * - y denotes 7 digits minimum length for mobile number
      * - z denotes 2 additional digit for "standard" mobile number length.
      *
      * @Assert\NotBlank(message="Mobile number is required")
      * @Assert\Regex(
-     *  pattern="/^(\+?62|0)8[1-9]{1}\d{7,9}$/",
+     *  pattern="/^08[1-9]{1}\d{7,9}$/",
      *  message="Please enter valid Indonesian mobile phone number"
      * )
      * @ORM\Column(type="string", length=14, unique=true)

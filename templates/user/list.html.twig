@@ -8,29 +8,23 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Email</th>
                 <th>FirstName</th>
                 <th>LastName</th>
                 <th>Phone</th>
                 <th>DoB</th>
                 <th>Gender</th>
-                <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
+                <td><a href="{{ path('user_profile', {'id': user.id}) }}">{{ user.email }}</a></td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.phone }}</td>
-                <td>{{ user.dob ? user.dob|date('Y-m-d') : '' }}</td>
-                <td>{{ user.gender }}</td>
-                <td>
-                    <a href="{{ path('user_profile', {'id': user.id}) }}">show</a>
-                </td>
+                <td>{{ user.dob ? user.dob|date('Y-m-d') : '-' }}</td>
+                <td>{{ user.gender is empty ? '-' }}</td>
             </tr>
         {% else %}
             <tr>
@@ -39,4 +33,6 @@
         {% endfor %}
         </tbody>
     </table>
+    <hr>
+    <a href="{{ path('user_add') }}">register</a>
 {% endblock %}
