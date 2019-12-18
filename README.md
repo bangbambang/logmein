@@ -2,10 +2,10 @@
 
 ### Prerequisite
 
-- PHP 7.2.5
+- PHP >= 7.2.5
 - A database (mysql/innodb is preferred)
 - Composer
-- (optional) symfony app
+- (optional) [symfony app](https://symfony.com/download).
 
 ### Install
 
@@ -29,6 +29,9 @@ php bin/console doctrine:schema:create
 
 - To start the server, either execute `symfony server:start` (if you have symfony installed) or `php -S 127.0.0.1:8000 -t public` to use PHP's built in server.
 
-### Tests
+### TODO
 
-TBA
+- [ ] Do something about non-ASCII chars
+- [ ] Sanity check on validators
+- [ ] Split controller to handle XHR specifically
+- [ ] Tests

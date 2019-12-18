@@ -40,7 +40,7 @@ class User
      * )
      * @Assert\Regex(
      *     pattern="/\w{1,}/",
-     *     message="Incompatible name"
+     *     message="Incompatible characters, please use tansliteration."
      * )
      * @Assert\Length(
      *      min = 1,
@@ -61,7 +61,7 @@ class User
      * )
      * @Assert\Regex(
      *     pattern="/\w{2,}/",
-     *     message="Incompatible name"
+     *     message="Incompatible characters, please use tansliteration."
      * )
      * @Assert\Length(
      *      min = 2,
