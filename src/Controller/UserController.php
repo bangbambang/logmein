@@ -33,13 +33,13 @@ class UserController extends AbstractController
             $form->isSubmitted() &&
             !$form->isValid()
         ) {
-            $response->setData(                [
+            $response->setData([
                 'status' => 'Error',
                 'message' => $this->getErrorMessages($form),
             ]);
             $response->setStatusCode(Response::HTTP_BAD_REQUEST);
-            return $response;
 
+            return $response;
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -52,8 +52,9 @@ class UserController extends AbstractController
                     'status' => 'success',
                     'message' => [
                         'redirect' => $this->generateUrl('user_login'),
-                    ]
+                    ],
                 ]);
+
                 return $response;
             } else {
                 return $this->redirectToRoute('user_login');
@@ -93,7 +94,6 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
-
 
     protected function getErrorMessages(Form $form)
     {

@@ -18,22 +18,22 @@ class UserType extends AbstractType
         $builder
             ->add('phone', TextType::class, [
                 'attr' => [
-                    'placeholder'   => 'Mobile number',
-                    'minlength'     => 10,
-                    'maxlength'     => 14,
-                    'tabindex'      => 1,
+                    'placeholder' => 'Mobile number',
+                    'minlength' => 10,
+                    'maxlength' => 14,
+                    'tabindex' => 1,
                 ],
             ])
             ->add('firstName', TextType::class, [
                 'attr' => [
-                    'placeholder'   => 'First name',
-                    'tabindex'      => 2,
+                    'placeholder' => 'First name',
+                    'tabindex' => 2,
                 ],
             ])
             ->add('lastName', TextType::class, [
                 'attr' => [
-                    'placeholder'   => 'Last Name',
-                    'tabindex'      => 3,
+                    'placeholder' => 'Last Name',
+                    'tabindex' => 3,
                 ],
             ])
             ->add('dob', DateType::class, [
@@ -67,8 +67,8 @@ class UserType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'placeholder'   => 'Email',
-                    'tabindex'      => 4,
+                    'placeholder' => 'Email',
+                    'tabindex' => 4,
                 ],
             ])
         ;
