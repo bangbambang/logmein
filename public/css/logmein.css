@@ -1,0 +1,25 @@
+/* FIXME: this is hacky */
+
+@media(max-width: 576px) {
+    select[id^="user_dob"] {
+        margin-bottom: 1rem;
+    }
+}
+
+@media(min-width: 576px) {
+    select[id^="user_dob"] {
+        margin-right: 1rem;
+        min-width: 5rem;
+    }
+}
+
+footer {
+    background: #dedede;
+    min-height: 100px;
+    max-height: 15%;
+}
+
+.invalid-tooltip {
+    top: -100%;
+    right: .25rem;
+}

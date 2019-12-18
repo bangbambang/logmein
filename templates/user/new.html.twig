@@ -1,11 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New User{% endblock %}
-
+{% block title %}Register
+{% endblock %}
 {% block body %}
-    <h1>Create new User</h1>
+	<div class="row d-flex flex-column m-3">
+		{{ form_start(form, {'attr': {'id': 'user_create', 'novalidate': 'novalidate'}}) }}
+		<fieldset id="data_field">
+            <legend>Registration</legend>
+			<div class="form-row">
+				<div class="form-group col-12">
+					{{ form_widget(form.phone) }}
+                    <div id="phone_validation" class="invalid-tooltip">Required</div>
+				</div>
+			</div>
 
-    {{ include('user/_form.html.twig') }}
+			<div class="form-row">
+				<div class="form-group col-12">
+					{{ form_widget(form.firstName) }}
+                    <div id="firstName_validation" class="invalid-tooltip">Required</div>
+				</div>
+			</div>
 
-    <a href="{{ path('user_index') }}">back to list</a>
+			<div class="form-row">
+				<div class="form-group col-12">
+					{{ form_widget(form.lastName) }}
+                    <div id="lastName_validation" class="invalid-tooltip">Required</div>
+				</div>
+			</div>
+
+			<div class="form-row">
+				{{ form_label(form.dob) }}
+				<div class="form-group col-12">
+					{{ form_widget(form.dob) }}
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group col-12">
+					{{ form_widget(form.gender) }}
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group col-12">
+					{{ form_widget(form.email) }}
+                    <div id="email_validation" class="invalid-tooltip">Required</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-12 d-flex justify-content-center">
+					<button class="btn btn-primary flex-fill">{{ submit_label|default('Register') }}</button>
+				</div>
+			</div>
+		</fieldset>
+		{{ form_end(form) }}
+	</div>
+	<footer class="row d-flex flex-column justify-content-center fixed-bottom px-5 py-3">
+		<a id="login_button" class="btn btn-primary flex-grow d-none" href="#" alt="{{ login_label|default('Login') }}">{{ login_label|default('Login') }}</a>
+	</footer>
+{% endblock %}
+{% block javascripts %}
+<script src="/js/logmein.js"></script>
 {% endblock %}

@@ -3,9 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("email", message="Email address already registered")
+ * @UniqueEntity("phone", message="Phone number already registered")
  */
 class User
 {
@@ -17,24 +21,53 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * Do note that valid email pattern did not translate to real email address.
+     *
+     * @Assert\NotBlank(message="Email is required")
+     * @Assert\Email(
+     *  message = "The email '{{ value }}' is not a valid email."
+     * )
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email;
 
     /**
+     * @Assert\NotBlank(message="First name is required")
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Name cannot contain a number"
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $firstName;
 
     /**
+     * @Assert\NotBlank(message="Last name is required")
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Name cannot contain a number"
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $lastName;
 
     /**
-     * @ORM\Column(type="string", length=14)
+     * Mobile phone use naive validation rules. a8xxyyyyyyzz where:
+     * - a denotes 1-3 characters (alternate between 0, 62, and +62)
+     * - x denotes 2 digits operator identifier (no zeroes)
+     * - y denotes 6 digits minimum length for mobile number
+     * - z denotes 2 additional digit for "standard" mobile number length.
+     *
+     * @Assert\NotBlank(message="Mobile number is required")
+     * @Assert\Regex(
+     *  pattern="/^(\+?62|0)8[1-9]{1}\d{7,9}$/",
+     *  message="Please enter valid Indonesian mobile phone number"
+     * )
+     * @ORM\Column(type="string", length=14, unique=true)
      */
-    private $mobile;
+    private $phone;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -87,14 +120,14 @@ class User
         return $this;
     }
 
-    public function getMobile(): ?string
+    public function getPhone(): ?string
     {
-        return $this->mobile;
+        return $this->phone;
     }
 
-    public function setMobile(string $mobile): self
+    public function setPhone(string $phone): self
     {
-        $this->mobile = $mobile;
+        $this->phone = $phone;
 
         return $this;
     }
